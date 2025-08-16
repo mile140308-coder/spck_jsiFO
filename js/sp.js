@@ -3,7 +3,7 @@ import {
   getDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
 import { db } from "./firebase/firebase-config.js";
-
+import { userSession } from "./userSession.js";
 document.addEventListener("DOMContentLoaded", async () => {
   const mauXe = document.getElementById("mau-xe");
   const params = new URLSearchParams(window.location.search);
