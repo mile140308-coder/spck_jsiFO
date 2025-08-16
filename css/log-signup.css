@@ -1,0 +1,92 @@
+/* Reset mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: lavender;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+div {
+  background-color: ivory;
+  text-align: center;
+  width: 400px;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề */
+h2 {
+  margin-bottom: 20px;
+  color: #444;
+}
+
+/* Input */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #9370db; /* Màu tím nhạt */
+  box-shadow: 0 0 5px rgba(147, 112, 219, 0.4);
+}
+
+/* Nút Sign Up */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #9370db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #7a5dc7;
+}
+
+/* Link đăng nhập */
+p {
+  margin-top: 15px;
+  color: #444;
+}
+
+a {
+  color: #9370db;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Thông báo */
+#message {
+  color: red;
+  margin-top: 10px;
+}
+img {
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  border-radius: 15px;
+  padding: 5px;
+}

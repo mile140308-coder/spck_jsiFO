@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="../css/trangchu.css" />
+  </head>
+  <body>
+    <!-- Navbar động sẽ được trangchu.js sinh ra -->
+    <nav id="navbar"></nav>
+
+    <main id="main-content"></main>
+    <section id="ban" class="product-section">
+      <header>
+        <h2 class="product-title">Danh sách sản phẩm</h2>
+        <p class="product-desc">
+          Khám phá các sản phẩm xe máy, xe đạp, xe điện mới nhất!
+        </p>
+      </header>
+      <div class="i"><div id="the" class="product-list"></div></div>
+    </section>
+    <footer class="footer" id="footer"></footer>
+    <!-- Scripts -->
+    <script type="module" src="../js/firebase/auth.js"></script>
+    <script type="module" src="../js/firebase/firebase-config.js"></script>
+    <script type="module" src="../js/trangchu.js"></script>
+  </body>
+</html>

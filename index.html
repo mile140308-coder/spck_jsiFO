@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Ảnh Lên Cloudinary</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>☁️ Upload Ảnh Lên Cloudinary</h1>
+      <p>Chọn ảnh và upload, lấy link trực tiếp!</p>
+    </header>
+
+    <main>
+      <div id="upload-area">
+        <h3>Kéo thả hoặc bấm để chọn file</h3>
+        <p style="color: rgba(255, 255, 255, 0.7)">Hỗ trợ ảnh nhỏ hơn 10MB</p>
+        <button
+          class="upload-btn"
+          onclick="document.getElementById('file-input').click()"
+        >
+          📁 Chọn File
+        </button>
+        <input type="file" id="file-input" accept="image/*" />
+        <img id="image-preview" alt="Xem trước ảnh" />
+        <br />
+        <button
+          id="upload-btn"
+          class="upload-btn"
+          style="display: none; margin-top: 15px"
+        >
+          ☁️ Upload lên Cloudinary
+        </button>
+      </div>
+
+      <div id="upload-status"></div>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>

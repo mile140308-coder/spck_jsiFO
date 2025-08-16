@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/log-signup.css" />
+  </head>
+  <body>
+    <div>
+      <h2>Login</h2>
+      <form id="login-form">
+        <input type="email" id="email" placeholder="Email" required /><br />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          required
+        /><br />
+        <button type="submit">Login</button>
+      </form>
+      <p>hoặc</p>
+      <button type="button" id="google-login-btn">
+        <img
+          src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+          alt="Google"
+        />Đăng nhập với Google
+      </button>
+      <!-- Kết quả -->
+      <p id="message"></p>
+
+      <!-- Đường dẫn sang signup -->
+      <p>
+        Bạn chưa có tài khoản?
+        <button type="button" id="signup-btn">Đăng ký tại đây</button>
+      </p>
+    </div>
+
+    <!-- Firebase config & login logic -->
+    <script type="module" src="../js/firebase/firebase-config.js"></script>
+    <script type="module" src="../js/login.js"></script>
+  </body>
+</html>
+
+<!-- QAZm1l!NVO -->
