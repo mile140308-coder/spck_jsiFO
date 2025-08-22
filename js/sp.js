@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const typeName = typeMap[data.type] || data.type;
   const engineName = engineMap[data.engine] || data.engine;
   mauXe.innerHTML = `
-    <a href="trangchu.html" style="display:inline-block;margin-bottom:18px;text-decoration:none;color:#1976d2;font-weight:500;">← Quay về trang chủ</a>
     <h2>${data.name}</h2>
     <img src="${
       data.img ? data.img : "https://via.placeholder.com/150"
@@ -41,6 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <p>Loại: ${typeName}</p>
     <p>Động cơ: ${engineName}</p>
     <p>Giá: ${data.price.toLocaleString()} VND</p>
+    <a href="trangchu.html" style="display:inline-block;margin-bottom:18px;text-decoration:none;color:#1976d2;font-weight:500;">← Quay về trang chủ</a>
   `;
 } else {
       mauXe.innerHTML = "<p>Không tìm thấy sản phẩm.</p>";
