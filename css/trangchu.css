@@ -135,3 +135,49 @@ main {
   gap: 20px;
   width: 100%;
 }
+/* ...existing code... */
+
+/* Thêm cho trang chi tiết sản phẩm */
+#mau-xe {
+  max-width: 500px;
+  margin: 40px auto 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+  padding: 32px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#mau-xe h2 {
+  font-size: 2rem;
+  color: #1976d2;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+#mau-xe img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+#mau-xe p {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 6px 0;
+  text-align: center;
+}
+
+/* Responsive cho chi tiết sản phẩm */
+@media (max-width: 600px) {
+  #mau-xe {
+    padding: 18px 6px 18px 6px;
+  }
+  #mau-xe img {
+    max-width: 98vw;
+  }
+}
