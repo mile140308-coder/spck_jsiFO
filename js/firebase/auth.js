@@ -17,7 +17,11 @@ import { userSession } from "../userSession.js";
 // ==================== Đăng ký ====================
 export async function signUp(email, password, role_id) {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
     const userData = {
       email,
@@ -58,7 +62,11 @@ async function getUserInfoFromFirestore(email) {
 export async function signIn(email, password) {
   try {
     // Đăng nhập Firebase Auth
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
     // Ưu tiên lấy thông tin từ session để tránh query Firestore nhiều lần
     let userInfo = userSession.getUserInfo?.();

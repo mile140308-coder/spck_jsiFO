@@ -1,11 +1,14 @@
 // js/userSession.js
 export const userSession = {
   saveSession(user, data) {
-    localStorage.setItem("session", JSON.stringify({
-      uid: user.uid,
-      email: user.email,
-      ...data
-    }));
+    localStorage.setItem(
+      "session",
+      JSON.stringify({
+        uid: user.uid,
+        email: user.email,
+        ...data,
+      })
+    );
   },
   getSession() {
     const data = localStorage.getItem("session");
@@ -20,5 +23,5 @@ export const userSession = {
   getUserInfo() {
     const data = localStorage.getItem("userInfo");
     return data ? JSON.parse(data) : null;
-  }
+  },
 };

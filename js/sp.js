@@ -29,10 +29,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const docRef = doc(db, "product", id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-  const data = docSnap.data();
-  const typeName = typeMap[data.type] || data.type;
-  const engineName = engineMap[data.engine] || data.engine;
-  mauXe.innerHTML = `
+      const data = docSnap.data();
+      const typeName = typeMap[data.type] || data.type;
+      const engineName = engineMap[data.engine] || data.engine;
+      mauXe.innerHTML = `
     <h2>${data.name}</h2>
     <img src="${
       data.img ? data.img : "https://via.placeholder.com/150"
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <p>Giá: ${data.price.toLocaleString()} VND</p>
     <a href="trangchu.html" style="display:inline-block;margin-bottom:18px;text-decoration:none;color:#1976d2;font-weight:500;">← Quay về trang chủ</a>
   `;
-} else {
+    } else {
       mauXe.innerHTML = "<p>Không tìm thấy sản phẩm.</p>";
     }
   } catch (err) {

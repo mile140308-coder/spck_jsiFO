@@ -143,7 +143,7 @@ main {
   margin: 40px auto 0 auto;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.09);
   padding: 32px 24px 24px 24px;
   display: flex;
   flex-direction: column;
@@ -162,7 +162,7 @@ main {
   max-width: 320px;
   border-radius: 10px;
   margin-bottom: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 #mau-xe p {
