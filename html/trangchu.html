@@ -10,17 +10,24 @@
     <!-- Navbar động sẽ được trangchu.js sinh ra -->
     <nav id="navbar"></nav>
 
-    <main id="main-content"></main>
-    <section id="ban" class="product-section">
-      <header>
-        <h2 class="product-title">Danh sách sản phẩm</h2>
-        <p class="product-desc">
-          Khám phá các sản phẩm xe máy, xe đạp, xe điện mới nhất!
-        </p>
-      </header>
-      <div class="i"><div id="the" class="product-list"></div></div>
-    </section>
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+      <section id="ban" class="product-section">
+        <header>
+          <h2 class="product-title">Danh sách sản phẩm</h2>
+          <p class="product-desc">
+            Khám phá các sản phẩm xe máy, xe đạp, xe điện mới nhất!
+          </p>
+        </header>
+        <div class="product-container">
+          <div id="the" class="product-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
     <footer class="footer" id="footer"></footer>
+
     <!-- Scripts -->
     <script type="module" src="../js/firebase/auth.js"></script>
     <script type="module" src="../js/firebase/firebase-config.js"></script>

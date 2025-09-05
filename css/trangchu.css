@@ -3,6 +3,8 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Navbar */
 nav {
   background-color: #333;
   color: white;
@@ -32,25 +34,19 @@ nav button:hover,
 nav a:hover {
   text-decoration: underline;
 }
+
 main {
   padding: 20px;
 }
 
-#ban {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-}
 /* Vùng sản phẩm */
 #ban.product-section {
   max-width: 1100px;
-  margin: 32px auto 32px auto;
+  margin: 32px auto;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-  padding: 32px 24px 24px 24px;
+  padding: 32px 24px;
 }
 
 .product-title {
@@ -71,13 +67,8 @@ main {
 .product-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f4f4f4;
-  border-radius: 5px;
+  gap: 20px;
   width: 100%;
-  height: 100%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 1100px) {
@@ -100,28 +91,32 @@ main {
   background: #f9f9f9;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
-  padding: 18px 14px 14px 14px;
+  padding: 18px 14px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: box-shadow 0.2s;
-  width: 80%;
+  width: 100%;
+  box-sizing: border-box;
 }
 .product-item:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
+
 .product-item h2 {
   font-size: 1.2rem;
   margin: 0 0 8px 0;
   color: #1976d2;
   text-align: center;
 }
+
 .product-item p {
   margin: 4px 0;
   color: #444;
   font-size: 1rem;
 }
+
 .product-item img {
   margin-top: 10px;
   width: 100%;
@@ -129,15 +124,8 @@ main {
   border-radius: 6px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
 }
-.i {
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  width: 100%;
-}
-/* ...existing code... */
 
-/* Thêm cho trang chi tiết sản phẩm */
+/* Chi tiết sản phẩm */
 #mau-xe {
   max-width: 500px;
   margin: 40px auto 0 auto;
@@ -175,9 +163,18 @@ main {
 /* Responsive cho chi tiết sản phẩm */
 @media (max-width: 600px) {
   #mau-xe {
-    padding: 18px 6px 18px 6px;
+    padding: 18px 6px;
   }
   #mau-xe img {
     max-width: 98vw;
   }
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 12px;
+  background: #f4f4f4;
+  font-size: 0.9rem;
+  color: #555;
 }
