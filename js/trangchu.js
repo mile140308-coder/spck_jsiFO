@@ -9,9 +9,7 @@ import {
   getDocs,
 } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
 import { auth, db } from "./firebase/firebase-config.js";
-import { userSession } from "./userSession.js";
-
-// 👉 Import thêm từ giohang.js
+import { userSession } from "../js/userSession.js";
 import { addToCart, updateCartBadge } from "./giohang.js";
 
 const navbar = document.getElementById("navbar");
