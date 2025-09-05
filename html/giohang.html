@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giỏ hàng</title>
+    <link rel="stylesheet" href="../css/trangchu.css" />
+  </head>
+  <body>
+    <main>
+      <h1>🛒 Giỏ hàng của bạn</h1>
+      <div id="cartList"></div>
+      <div id="cartTotal"></div>
+    </main>
+    <div style="text-align: center; margin-top: 20px">
+      <a
+        href="trangchu.html"
+        style="
+          display: inline-block;
+          padding: 10px 20px;
+          background: #28a745;
+          color: white;
+          text-decoration: none;
+          border-radius: 6px;
+          font-weight: bold;
+        "
+      >
+        ⬅️ Quay lại Trang chủ
+      </a>
+    </div>
+    <script type="module" src="../js/firebase/auth.js"></script>
+    <script type="module" src="../js/firebase/firebase-config.js"></script>
+    <script type="module" src="../js/giohang.js"></script>
+  </body>
+</html>

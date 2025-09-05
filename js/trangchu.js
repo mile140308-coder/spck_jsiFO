@@ -11,6 +11,9 @@ import {
 import { auth, db } from "./firebase/firebase-config.js";
 import { userSession } from "./userSession.js";
 
+// 👉 Import thêm từ giohang.js
+import { addToCart, updateCartBadge } from "./giohang.js";
+
 const navbar = document.getElementById("navbar");
 
 // Navbar mặc định khi đang tải
@@ -55,6 +58,7 @@ function renderNavbar(user, role_id) {
       <div class="menu">
           <input type="text" id="navbar-search" placeholder="Tìm kiếm..." style="padding:4px 8px; border-radius:4px; border:1px solid #ccc; margin-right:6px;">
           <button id="navbar-search-btn" style="padding:4px 10px; border:1px solid #ccc; border-radius:4px; cursor:pointer;">🔍</button>
+        <a href="giohang.html" id="cart-link">🛒 Giỏ hàng <span id="cart-count">0</span></a>
         <span>${user.email}</span>
         <span style="margin-left:10px;">Role: ${role_id === 3 ? "Admin" : "User"}</span>
         ${role_id === 3 ? `<a href="../index.html" style="margin-left:10px;">Quản lý</a>` : ""}
@@ -71,11 +75,15 @@ function renderNavbar(user, role_id) {
       <div class="menu">
           <input type="text" id="navbar-search" placeholder="Tìm kiếm..." style="padding:4px 8px; border-radius:4px; border:1px solid #ccc; margin-right:6px;">
           <button id="navbar-search-btn" style="padding:4px 10px; border:1px solid #ccc; border-radius:4px; cursor:pointer;">🔍</button>
+        <a href="giohang.html" id="cart-link">🛒 Giỏ hàng <span id="cart-count">0</span></a>
         <a href="login.html">Đăng nhập</a>
         <a href="signup.html">Đăng ký</a>
       </div>
     `;
   }
+
+  // 👉 Cập nhật số lượng giỏ hàng khi render navbar
+  updateCartBadge();
 
   // Gán lại sự kiện tìm kiếm cho input, nút và phím tắt "/"
   setTimeout(() => {
@@ -167,20 +175,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     let html = "";
     products.forEach((data) => {
       html += `
-        <a href="sp.html?id=${
-          data.id
-        }" class="product-item" style="border:1px solid #ccc; border-radius:8px; padding:16px; margin-bottom:16px;text-decoration:none;">
-          <h2>${data.name}</h2>
-          <img src="${
-            data.img ? data.img : "https://via.placeholder.com/150"
-          }" alt="${data.name}" style="max-width:auto; height:auto;">
-          <p>Loại: ${data.typeName}</p>
-          <p>Động cơ: ${data.engineName}</p>
-          <p>Giá: ${data.price.toLocaleString()} VND</p>
-        </a>
+        <div class="product-item" 
+             style="border:1px solid #ccc; border-radius:8px; padding:16px; margin-bottom:16px;">
+          <a href="sp.html?id=${data.id}" style="text-decoration:none; color:inherit;">
+            <h2>${data.name}</h2>
+            <img src="${data.img ? data.img : "https://via.placeholder.com/150"}" 
+                 alt="${data.name}" style="max-width:auto; height:auto;">
+            <p>Loại: ${data.typeName}</p>
+            <p>Động cơ: ${data.engineName}</p>
+            <p>Giá: ${data.price.toLocaleString()} VND</p>
+          </a>
+          <button class="add-to-cart" data-id="${data.id}" 
+                  style="margin-top:10px; padding:6px 12px; border:none; border-radius:4px; background:#28a745; color:white; cursor:pointer;">
+            🛒 Thêm vào giỏ
+          </button>
+        </div>
       `;
     });
     theDiv.innerHTML = html || "<p>Không có sản phẩm nào.</p>";
+
+    // 👉 Gắn sự kiện cho nút "Thêm vào giỏ"
+    document.querySelectorAll(".add-to-cart").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-id");
+        addToCart(id); // gọi từ giohang.js
+        updateCartBadge(); // cập nhật badge số lượng
+      });
+    });
   }
 
   window.renderProducts = renderProducts;
