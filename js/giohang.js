@@ -1,77 +1,11 @@
-// === Import Firestore từ file config ===
-import { db } from "./js/firebase/firebase-config.js";
-import {
-  collection,
-  getDocs,
-} from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
-import { userSession } from "./userSession.js";
-// === Map giống trangchu.js ===
-const typeMap = {
-  motor: "Xe máy",
-  bicycle: "Xe đạp",
-};
-const engineMap = {
-  none: "Không có động cơ",
-  electric: "điện",
-  gasoline: "xăng",
-};
+// js/giohang.js
+import { db } from "./firebase/firebase-config.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
+import { getCart, removeFromCart, clearCart } from "./cartUtils.js";
 
-// === Hàm định dạng VND ===
-function formatCurrency(price) {
-  return Number(price).toLocaleString("vi-VN", {
-    style: "currency",
-    currency: "VND",
-  });
-}
+console.log("✅ giohang.js loaded");
 
-// === Thêm vào giỏ hàng (localStorage) ===
-function addToCart(productId) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const existing = cart.find((item) => item.id === productId);
-
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push({ id: productId, quantity: 1 });
-  }
-
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert("✅ Đã thêm vào giỏ hàng!");
-}
-
-// === Xóa sản phẩm khỏi giỏ ===
-function removeFromCart(productId) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart = cart.filter((item) => item.id !== productId);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  loadCart();
-}
-
-// === Xóa toàn bộ giỏ ===
-function clearCart() {
-  localStorage.removeItem("cart");
-  loadCart();
-}
-
-// === Lấy toàn bộ dữ liệu từ Firestore (collection: data) ===
-async function fetchAllData() {
-  const querySnapshot = await getDocs(collection(db, "data"));
-  let products = [];
-  querySnapshot.forEach((docSnap) => {
-    const data = docSnap.data();
-    products.push({
-      id: docSnap.id,
-      ...data,
-      typeName: typeMap[data.type] || data.type,
-      engineName: engineMap[data.engine] || data.engine,
-    });
-  });
-  return products;
-}
-
-// === Hiển thị giỏ hàng ===
-async function loadCart() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+export async function loadCart() {
   const container = document.getElementById("cartList");
   const totalContainer = document.getElementById("cartTotal");
   if (!container || !totalContainer) return;
@@ -79,78 +13,66 @@ async function loadCart() {
   container.innerHTML = "";
   totalContainer.innerHTML = "";
 
-  if (cart.length === 0) {
+  const cart = getCart();
+  if (!cart.length) {
     container.innerHTML = "<p>🛒 Giỏ hàng trống.</p>";
     return;
   }
 
-  try {
-    const products = await fetchAllData();
-    let total = 0;
-
-    cart.forEach((item) => {
-      const product = products.find((p) => p.id === item.id);
-      if (!product) return;
-
-      const itemTotal = product.price * item.quantity;
+  let total = 0;
+  for (const item of cart) {
+    try {
+      const prodRef = doc(db, "product", item.id);
+      const prodSnap = await getDoc(prodRef);
+      if (!prodSnap.exists()) {
+        console.warn("Không tìm thấy product id:", item.id);
+        continue;
+      }
+      const p = prodSnap.data();
+      const itemTotal = (Number(p.price) || 0) * item.quantity;
       total += itemTotal;
 
       const card = document.createElement("div");
       card.className = "product-card";
       card.style = "border:1px solid #ccc; padding:12px; margin:8px; border-radius:8px;";
       card.innerHTML = `
-        <img src="${product.img || "https://via.placeholder.com/150"}" 
-             alt="${product.name}" 
-             class="product-img" 
-             style="max-width:150px; height:auto;">
-        <h3>${product.name}</h3>
-        <p>Loại: ${product.typeName}</p>
-        <p>Động cơ: ${product.engineName}</p>
-        <p>Giá: ${formatCurrency(product.price)}</p>
+        <img src="${p.img || "https://via.placeholder.com/150"}" alt="${p.name || ""}" style="max-width:150px;">
+        <h3>${p.name || ""}</h3>
+        <p>Giá: ${(Number(p.price) || 0).toLocaleString("vi-VN")} VND</p>
         <p>Số lượng: x${item.quantity}</p>
-        <p>Tổng: ${formatCurrency(itemTotal)}</p>
+        <p>Tổng: ${itemTotal.toLocaleString("vi-VN")} VND</p>
         <button class="btn remove-item" data-id="${item.id}">🗑️ Xóa</button>
       `;
       container.appendChild(card);
 
       card.querySelector(".remove-item").addEventListener("click", () => {
         removeFromCart(item.id);
+        loadCart();
       });
-    });
-
-    const totalDiv = document.createElement("div");
-    totalDiv.className = "cart-summary";
-    totalDiv.innerHTML = `
-      <hr>
-      <h3>Tổng cộng: ${formatCurrency(total)}</h3>
-      <button class="btn btn-buy" id="buyBtn">🛒 Mua hàng</button>
-      <button class="btn" id="clearCartBtn">🧹 Xóa toàn bộ giỏ hàng</button>
-    `;
-    totalContainer.appendChild(totalDiv);
-
-    document.getElementById("clearCartBtn").addEventListener("click", () => {
-      if (confirm("Bạn có chắc muốn xóa toàn bộ giỏ hàng?")) {
-        clearCart();
-      }
-    });
-
-    document.getElementById("buyBtn").addEventListener("click", () => {
-      if (confirm(`Xác nhận mua hàng với tổng ${formatCurrency(total)}?`)) {
-        alert("🎉 Cảm ơn bạn đã mua hàng!");
-        clearCart();
-      }
-    });
-  } catch (error) {
-    console.error("Lỗi tải giỏ hàng:", error);
-    container.innerHTML = "<p>❌ Lỗi tải dữ liệu sản phẩm.</p>";
+    } catch (e) {
+      console.error("Lỗi khi load item", item.id, e);
+    }
   }
+
+  const totalDiv = document.createElement("div");
+  totalDiv.innerHTML = `
+    <hr>
+    <h3>Tổng cộng: ${(total || 0).toLocaleString("vi-VN")} VND</h3>
+    <button id="clearCartBtn" class="btn">🧹 Xóa toàn bộ giỏ hàng</button>
+  `;
+  totalContainer.appendChild(totalDiv);
+
+  document.getElementById("clearCartBtn").addEventListener("click", () => {
+    if (confirm("Bạn có chắc muốn xóa toàn bộ giỏ hàng?")) {
+      clearCart();
+      loadCart();
+    }
+  });
 }
 
-// === Khi DOM sẵn sàng thì load giỏ ===
+// tự động load khi vào page chứa #cartList
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("cartList")) {
     loadCart();
   }
 });
-
-export { addToCart, removeFromCart, clearCart, loadCart };

@@ -1,3 +1,27 @@
+import { db } from "./js/firebase/firebase-config.js";
+import {
+  collection,
+  getDocs,
+} from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
+import { userSession } from "./userSession.js";
+//=== ham upload len firebase storage===
+//=== Thêm dữ liệu sản phẩm vào Firestore ===
+async function addProduct({ engine, img, name, price, type }) {
+  try {
+    const docRef = await addDoc(collection(db, "product"), {
+      engine,
+      img,
+      name,
+      price,
+      type,
+    });
+    console.log("Đã thêm sản phẩm với ID:", docRef.id);
+    alert("✅ Sản phẩm đã được thêm vào Firestore!");
+  } catch (e) {
+    console.error("Lỗi khi thêm document:", e);
+    alert("❌ Lỗi khi thêm sản phẩm!");
+  }
+}
 async function uploadToCloudinary(file) {
   try {
     const formData = new FormData();

@@ -11,25 +11,69 @@
       <h1>☁️ Upload Ảnh Lên Cloudinary</h1>
       <p>Chọn ảnh và upload, lấy link trực tiếp!</p>
     </header>
+    <!-- add vào firestore -->
+    <div id="upload-area" class="upload-area">
+      <input type="file" id="file-input" accept="image/*" hidden />
+      <img
+        id="image-preview"
+        style="display: none; max-width: 200px; margin-top: 10px"
+      />
+      <button id="upload-btn" class="upload-btn" style="display: none">
+        ☁️ Upload lên Cloudinary
+      </button>
+      <div id="upload-status"></div>
+    </div>
 
-<main>
-  <div id="upload-area">
-    <h3>Kéo thả hoặc bấm để chọn file</h3>
-    <p style="color: rgba(255, 255, 255, 0.7)">Hỗ trợ ảnh nhỏ hơn 10MB</p>
-    <button
-      class="upload-btn"
-      id="choose-btn"
-      type="button"
-    >
-      📁 Chọn File
-    </button>
-    <input type="file" id="file-input" style="display:none" />
-    <img id="image-preview" style="display:none;max-width:100%;margin-top:10px;" />
-    <br />
-    <button id="upload-btn" class="upload-btn" style="display:none;">☁️ Upload lên Cloudinary</button>
-  </div>
-  <div id="upload-status"></div>
-</main>
+    <!-- Form nhập thông tin sản phẩm -->
+    <div class="product-form" style="margin-top: 20px">
+      <label>
+        Tên sản phẩm:
+        <input type="text" id="product-name" placeholder="Nhập tên sản phẩm" />
+      </label>
+      <br /><br />
+
+      <label>
+        Giá:
+        <input type="number" id="product-price" placeholder="Nhập giá" />
+      </label>
+      <br /><br />
+
+      <label>
+        Loại:
+        <input type="text" id="product-type" placeholder="bicycle / car..." />
+      </label>
+      <br /><br />
+
+      <label>
+        Engine:
+        <input type="text" id="product-engine" placeholder="none / diesel..." />
+      </label>
+      <br /><br />
+
+      <!-- Nút lưu sản phẩm -->
+      <button id="save-product" class="upload-btn">
+        💾 Lưu sản phẩm vào Firestore
+      </button>
+    </div>
+    <main>
+      <div id="upload-area">
+        <h3>Kéo thả hoặc bấm để chọn file</h3>
+        <p style="color: rgba(255, 255, 255, 0.7)">Hỗ trợ ảnh nhỏ hơn 10MB</p>
+        <button class="upload-btn" id="choose-btn" type="button">
+          📁 Chọn File
+        </button>
+        <input type="file" id="file-input" style="display: none" />
+        <img
+          id="image-preview"
+          style="display: none; max-width: 100%; margin-top: 10px"
+        />
+        <br />
+        <button id="upload-btn" class="upload-btn" style="display: none">
+          ☁️ Upload lên Cloudinary
+        </button>
+      </div>
+      <div id="upload-status"></div>
+    </main>
 
     <script src="../js/main.js"></script>
   </body>
