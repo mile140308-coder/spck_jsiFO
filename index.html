@@ -3,29 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload Ảnh Lên Cloudinary</title>
+    <title>Quản lý Sản phẩm Firestore & Upload Ảnh Cloudinary</title>
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
     <header>
-      <h1>☁️ Upload Ảnh Lên Cloudinary</h1>
-      <p>Chọn ảnh và upload, lấy link trực tiếp!</p>
+      <h1>☁️ Quản lý Sản phẩm & Ảnh</h1>
+      <p>Thêm, sửa, xóa sản phẩm Firestore & upload ảnh Cloudinary</p>
     </header>
-    <!-- add vào firestore -->
-    <div id="upload-area" class="upload-area">
-      <input type="file" id="file-input" accept="image/*" hidden />
+
+    <!-- Khu vực upload ảnh -->
+    <section id="upload-area" class="upload-area">
+      <h3>Kéo thả hoặc bấm để chọn file</h3>
+      <p style="color: rgba(255, 255, 255, 0.7)">Hỗ trợ ảnh nhỏ hơn 10MB</p>
+      <button class="upload-btn" id="choose-btn" type="button">
+        📁 Chọn File
+      </button>
+      <input type="file" id="file-input" accept="image/*" style="display: none" />
       <img
         id="image-preview"
         style="display: none; max-width: 200px; margin-top: 10px"
       />
+      <br />
       <button id="upload-btn" class="upload-btn" style="display: none">
         ☁️ Upload lên Cloudinary
       </button>
       <div id="upload-status"></div>
-    </div>
+    </section>
 
     <!-- Form nhập thông tin sản phẩm -->
-    <div class="product-form" style="margin-top: 20px">
+    <section class="product-form" style="margin-top: 20px">
+      <h2>Thêm sản phẩm mới</h2>
       <label>
         Tên sản phẩm:
         <input type="text" id="product-name" placeholder="Nhập tên sản phẩm" />
@@ -50,30 +58,24 @@
       </label>
       <br /><br />
 
+      <label>
+        Link ảnh (Cloudinary):
+        <input type="text" id="product-img" placeholder="Dán link ảnh ở đây" />
+      </label>
+      <br /><br />
+
       <!-- Nút lưu sản phẩm -->
       <button id="save-product" class="upload-btn">
         💾 Lưu sản phẩm vào Firestore
       </button>
-    </div>
-    <main>
-      <div id="upload-area">
-        <h3>Kéo thả hoặc bấm để chọn file</h3>
-        <p style="color: rgba(255, 255, 255, 0.7)">Hỗ trợ ảnh nhỏ hơn 10MB</p>
-        <button class="upload-btn" id="choose-btn" type="button">
-          📁 Chọn File
-        </button>
-        <input type="file" id="file-input" style="display: none" />
-        <img
-          id="image-preview"
-          style="display: none; max-width: 100%; margin-top: 10px"
-        />
-        <br />
-        <button id="upload-btn" class="upload-btn" style="display: none">
-          ☁️ Upload lên Cloudinary
-        </button>
-      </div>
-      <div id="upload-status"></div>
-    </main>
+    </section>
+
+    <!-- Danh sách sản phẩm -->
+    <section style="margin-top: 40px">
+      <h2>Danh sách sản phẩm</h2>
+      <div id="product-list"></div>
+      <div id="edit-form"></div>
+    </section>
 
     <script src="../js/main.js"></script>
   </body>
