@@ -8,10 +8,9 @@ import {
   addDoc,
   getDoc,
 } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
-import { userSession } from "./userSession.js";
 
 //=== Thêm dữ liệu sản phẩm vào Firestore ===
-async function addProduct({ engine, img, name, price, type }) {
+window.addProduct = async function ({ engine, img, name, price, type }) {
   try {
     const docRef = await addDoc(collection(db, "product"), {
       engine,
@@ -22,12 +21,12 @@ async function addProduct({ engine, img, name, price, type }) {
     });
     console.log("Đã thêm sản phẩm với ID:", docRef.id);
     alert("✅ Sản phẩm đã được thêm vào Firestore!");
-    renderProductList(); // Tự động reload danh sách sau khi thêm
+    renderProductList();
   } catch (e) {
     console.error("Lỗi khi thêm document:", e);
     alert("❌ Lỗi khi thêm sản phẩm!");
   }
-}
+};
 
 async function uploadToCloudinary(file) {
   try {
@@ -58,30 +57,47 @@ async function uploadToCloudinary(file) {
   }
 }
 
-// Hiển thị danh sách sản phẩm với nút sửa/xóa
-async function renderProductList() {
+// Hiển thị danh sách sản phẩm giống trangchu.js, có nút sửa/xóa
+window.renderProductList = async function () {
   const listDiv = document.getElementById("product-list");
-  listDiv.innerHTML = "<h3>Danh sách sản phẩm</h3>";
+  listDiv.innerHTML = `<h3>Danh sách sản phẩm</h3>`;
+
   const querySnapshot = await getDocs(collection(db, "product"));
   if (querySnapshot.empty) {
     listDiv.innerHTML += "<p>Không có sản phẩm nào.</p>";
     return;
   }
-  querySnapshot.forEach((docSnap) => {
+
+  const products = querySnapshot.docs.map((docSnap) => {
     const data = docSnap.data();
-    const itemDiv = document.createElement("div");
-    itemDiv.className = "product-item";
-    itemDiv.innerHTML = `
-      <strong>${data.name}</strong> - ${data.price} VND<br>
-      <img src="${data.img || 'https://via.placeholder.com/100'}" alt="${data.name}" style="max-width:100px;max-height:100px;"><br>
-      <span>Loại: ${data.type}</span> | <span>Engine: ${data.engine}</span>
-      <br>
-      <button class="edit-btn" data-id="${docSnap.id}">✏️ Sửa</button>
-      <button class="delete-btn" data-id="${docSnap.id}">🗑️ Xóa</button>
-      <hr>
-    `;
-    listDiv.appendChild(itemDiv);
+    return {
+      id: docSnap.id,
+      name: data.name || "Sản phẩm",
+      img: data.img || "",
+      price: data.price || 0,
+      type: data.type || "",
+      engine: data.engine || "",
+    };
   });
+
+  listDiv.innerHTML += products
+    .map(
+      (p) => `
+      <div class="product-item" id="product-${p.id}">
+        <a href="sp.html?id=${p.id}" class="product-link">
+          <h3 class="product-name">${p.name}</h3>
+        </a>
+        <img src="${p.img || 'https://via.placeholder.com/150'}" alt="${p.name}" class="product-img" />
+        <p class="product-price">Giá: ${(Number(p.price)||0).toLocaleString("vi-VN")} VND</p>
+        <p>Loại: ${p.type} | Engine: ${p.engine}</p>
+        <button class="edit-btn product-btn" data-id="${p.id}">✏️ Sửa</button>
+        <button class="delete-btn product-btn" data-id="${p.id}">🗑️ Xóa</button>
+        <div id="msg-${p.id}" class="edit-msg"></div>
+        <hr>
+      </div>
+    `
+    )
+    .join("");
 
   // Gán sự kiện xóa
   listDiv.querySelectorAll(".delete-btn").forEach((btn) => {
@@ -115,8 +131,8 @@ function showEditForm(id, data) {
     <label>Loại: <input id="edit-type" value="${data.type}" /></label><br>
     <label>Engine: <input id="edit-engine" value="${data.engine}" /></label><br>
     <label>Ảnh: <input id="edit-img" value="${data.img}" /></label><br>
-    <button id="save-edit">💾 Lưu</button>
-    <button id="cancel-edit">❌ Hủy</button>
+    <button id="save-edit" class="product-btn">💾 Lưu</button>
+    <button id="cancel-edit" class="product-btn">❌ Hủy</button>
     <hr>
   `;
   document.getElementById("save-edit").onclick = async () => {
@@ -240,6 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "success"
         );
 
+        document.getElementById("product-img").value = imageUrl;
         console.log("Image URL for database:", imageUrl);
       } catch (error) {
         showStatus(`❌ Lỗi upload: ${error.message}`, "error");
@@ -250,17 +267,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Tạo div hiển thị danh sách sản phẩm và form sửa nếu chưa có
-  if (!document.getElementById("product-list")) {
-    const div = document.createElement("div");
-    div.id = "product-list";
-    document.body.appendChild(div);
-  }
-  if (!document.getElementById("edit-form")) {
-    const div = document.createElement("div");
-    div.id = "edit-form";
-    document.body.appendChild(div);
-  }
   renderProductList();
 });
 

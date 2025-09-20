@@ -1,9 +1,9 @@
 // js/trangchu.js
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
+import { collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js";
 import { auth, db } from "./firebase/firebase-config.js";
-import { addToCart } from "./cartUtils.js"; // <-- đúng: từ cartUtils
-
+import { addToCart } from "./cartUtils.js";
+import { userSession } from "./userSession.js";
 console.log("✅ trangchu.js loaded");
 
 const navbar = document.getElementById("navbar");
@@ -12,31 +12,33 @@ let currentUser = null;
 
 function renderNavbarLoggedOut() {
   if (!navbar) return;
+  navbar.className = "navbar";
   navbar.innerHTML = `
-    <div class="navbar-container">
-      <a href="trangchu.html" class="navbar-logo">🏠 Trang Chủ</a>
-      <div class="navbar-menu">
-        <input type="text" id="navbar-search" placeholder="Tìm kiếm sản phẩm..." style="padding:4px 8px; border-radius:4px; border:1px solid #ccc; margin-right:10px;">
-        <a href="login.html">Đăng nhập</a>
-        <a href="signup.html" style="margin-left:10px;">Đăng ký</a>
-      </div>
+    <div class="logo">🏠 Trang Chủ</div>
+    <div class="menu">
+      <input type="text" id="navbar-search" class="navbar-search" placeholder="Tìm kiếm sản phẩm..." />
+      <a href="login.html" class="navbar-link">Đăng nhập</a>
+      <a href="signup.html" class="navbar-link">Đăng ký</a>
     </div>
   `;
 }
 
-function renderNavbarLoggedIn(email) {
+async function renderNavbarLoggedIn(email, role) {
   if (!navbar) return;
+  navbar.className = "navbar";
   navbar.innerHTML = `
-    <div class="navbar-container">
-      <a href="trangchu.html" class="navbar-logo">🏠 Trang Chủ</a>
-      <div class="navbar-menu">
-        <input type="text" id="navbar-search" placeholder="Tìm kiếm sản phẩm..." style="padding:4px 8px; border-radius:4px; border:1px solid #ccc; margin-right:10px;">
-        <span style="margin-right:10px;">${email}</span>
-        <button id="logoutBtn" style="margin-left:10px;">Đăng xuất</button>
-      </div>
+    <div class="logo">🏠 Trang Chủ</div>
+    <div class="menu">
+      <input type="text" id="navbar-search" class="navbar-search" placeholder="Tìm kiếm sản phẩm..." />
+      <span class="navbar-user">${email}</span>
+      ${
+        role === 3
+          ? `<a href="../index.html" class="navbar-link" style="margin-left:10px;">Quản lý</a>`
+          : ""
+      }
+      <button id="logoutBtn" class="navbar-btn">Đăng xuất</button>
     </div>
   `;
-  // Thêm sự kiện logout
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
     logoutBtn.onclick = async () => {
@@ -47,13 +49,29 @@ function renderNavbarLoggedIn(email) {
 }
 
 renderNavbarLoggedOut();
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   currentUser = user || null;
-  if (user) renderNavbarLoggedIn(user.email);
-  else renderNavbarLoggedOut();
+  if (user) {
+    // Lấy role từ Firestore
+    let role = 0;
+    try {
+      const docRef = doc(db, "user", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        role = Number(userData.role) || 0;
+      }
+    } catch (err) {
+      console.error("Không lấy được role:", err);
+    }
+    renderNavbarLoggedIn(user.email, role);
+  } else {
+    renderNavbarLoggedOut();
+  }
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  if (footer) footer.classList.add("footer");
   if (footer) footer.innerHTML = `<p>© 2025 Cửa Hàng Xe</p>`;
 
   const productList = document.getElementById("the");
@@ -61,10 +79,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Không tìm thấy #the");
     return;
   }
+  productList.classList.add("product-list");
   productList.innerHTML = `<p>⏳ Đang tải...</p>`;
 
   try {
-    const snap = await getDocs(collection(db, "product")); // đúng collection 'product'
+    const snap = await getDocs(collection(db, "product"));
     if (snap.empty) {
       productList.innerHTML = "<p>⚠ Không có sản phẩm trong Firestore.</p>";
       return;
@@ -85,13 +104,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     productList.innerHTML = products
       .map(
         (p) => `
-      <div class="product-item">
-        <a href="sp.html?id=${p.id}">
-          <h3>${p.name}</h3>
+      <div class="product-item" id="product-${p.id}">
+        <a href="sp.html?id=${p.id}" class="product-link">
+          <h3 class="product-name">${p.name}</h3>
         </a>
-        <img src="${p.img || 'https://via.placeholder.com/150'}" alt="${p.name}" style="max-width:200px;">
-        <p>Giá: ${(Number(p.price)||0).toLocaleString("vi-VN")} VND</p>
-        <button class="add-to-cart" data-id="${p.id}">➕ Thêm vào giỏ hàng</button>
+        <img src="${p.img || 'https://via.placeholder.com/150'}" alt="${p.name}" class="product-img" />
+        <p class="product-price">Giá: ${(Number(p.price)||0).toLocaleString("vi-VN")} VND</p>
+        <button class="add-to-cart product-btn" data-id="${p.id}">➕ Thêm vào giỏ hàng</button>
         <div id="msg-${p.id}" class="cart-msg"></div>
       </div>
     `

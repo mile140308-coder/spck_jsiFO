@@ -77,6 +77,35 @@
       <div id="edit-form"></div>
     </section>
 
-    <script src="../js/main.js"></script>
+    <script type="module" src="../js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const saveBtn = document.getElementById("save-product");
+        saveBtn.onclick = async () => {
+          const name = document.getElementById("product-name").value.trim();
+          const price = Number(document.getElementById("product-price").value);
+          const type = document.getElementById("product-type").value.trim();
+          const engine = document.getElementById("product-engine").value.trim();
+          const img = document.getElementById("product-img").value.trim();
+
+          if (!name || !type || !engine || !img || !price) {
+            alert("Vui lòng nhập đầy đủ thông tin sản phẩm!");
+            return;
+          }
+
+          // Gọi hàm addProduct từ main.js
+          if (typeof addProduct === "function") {
+            await addProduct({ name, price, type, engine, img });
+            document.getElementById("product-name").value = "";
+            document.getElementById("product-price").value = "";
+            document.getElementById("product-type").value = "";
+            document.getElementById("product-engine").value = "";
+            document.getElementById("product-img").value = "";
+          } else {
+            alert("Không tìm thấy hàm addProduct!");
+          }
+        };
+      });
+    </script>
   </body>
 </html>
