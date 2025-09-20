@@ -12,94 +12,59 @@
       <p>Thêm, sửa, xóa sản phẩm Firestore & upload ảnh Cloudinary</p>
     </header>
 
-    <!-- Khu vực upload ảnh -->
     <section id="upload-area" class="upload-area">
       <h3>Kéo thả hoặc bấm để chọn file</h3>
-      <p style="color: rgba(255, 255, 255, 0.7)">Hỗ trợ ảnh nhỏ hơn 10MB</p>
-      <button class="upload-btn" id="choose-btn" type="button">
-        📁 Chọn File
-      </button>
+      <button class="upload-btn" id="choose-btn" type="button">📁 Chọn File</button>
       <input type="file" id="file-input" accept="image/*" style="display: none" />
-      <img
-        id="image-preview"
-        style="display: none; max-width: 200px; margin-top: 10px"
-      />
+      <img id="image-preview" style="display: none; max-width: 200px; margin-top: 10px" />
       <br />
-      <button id="upload-btn" class="upload-btn" style="display: none">
-        ☁️ Upload lên Cloudinary
-      </button>
+      <button id="upload-btn" class="upload-btn" style="display: none">☁️ Upload lên Cloudinary</button>
       <div id="upload-status"></div>
     </section>
 
-    <!-- Form nhập thông tin sản phẩm -->
     <section class="product-form" style="margin-top: 20px">
       <h2>Thêm sản phẩm mới</h2>
-      <label>
-        Tên sản phẩm:
-        <input type="text" id="product-name" placeholder="Nhập tên sản phẩm" />
-      </label>
-      <br /><br />
-
-      <label>
-        Giá:
-        <input type="number" id="product-price" placeholder="Nhập giá" />
-      </label>
-      <br /><br />
-
-      <label>
-        Loại:
-        <input type="text" id="product-type" placeholder="bicycle / car..." />
-      </label>
-      <br /><br />
-
-      <label>
-        Engine:
-        <input type="text" id="product-engine" placeholder="none / diesel..." />
-      </label>
-      <br /><br />
-
-      <label>
-        Link ảnh (Cloudinary):
-        <input type="text" id="product-img" placeholder="Dán link ảnh ở đây" />
-      </label>
-      <br /><br />
-
-      <!-- Nút lưu sản phẩm -->
-      <button id="save-product" class="upload-btn">
-        💾 Lưu sản phẩm vào Firestore
-      </button>
+      <label>Tên sản phẩm: <input type="text" id="product-name" /></label><br /><br />
+      <label>Giá: <input type="number" id="product-price" /></label><br /><br />
+      <label>Loại: <input type="text" id="product-type" /></label><br /><br />
+      <label>Engine: <input type="text" id="product-engine" /></label><br /><br />
+      <label>Thương hiệu: <input type="text" id="product-brand" /></label><br /><br />
+      <label>Link ảnh (Cloudinary): <input type="text" id="product-img" /></label><br /><br />
+      <button id="save-product" class="upload-btn">💾 Lưu sản phẩm vào Firestore</button>
     </section>
 
-    <!-- Danh sách sản phẩm -->
     <section style="margin-top: 40px">
       <h2>Danh sách sản phẩm</h2>
       <div id="product-list"></div>
       <div id="edit-form"></div>
     </section>
 
-    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="./js/main.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        if (typeof window.renderProductList === "function") window.renderProductList();
+
         const saveBtn = document.getElementById("save-product");
         saveBtn.onclick = async () => {
           const name = document.getElementById("product-name").value.trim();
           const price = Number(document.getElementById("product-price").value);
           const type = document.getElementById("product-type").value.trim();
           const engine = document.getElementById("product-engine").value.trim();
+          const brand = document.getElementById("product-brand").value.trim();
           const img = document.getElementById("product-img").value.trim();
 
-          if (!name || !type || !engine || !img || !price) {
+          if (!name || !type || !engine || !img || !price || !brand) {
             alert("Vui lòng nhập đầy đủ thông tin sản phẩm!");
             return;
           }
 
-          // Gọi hàm addProduct từ main.js
-          if (typeof addProduct === "function") {
-            await addProduct({ name, price, type, engine, img });
+          if (typeof window.addProduct === "function") {
+            await window.addProduct({ name, price, type, engine, img, brand });
             document.getElementById("product-name").value = "";
             document.getElementById("product-price").value = "";
             document.getElementById("product-type").value = "";
             document.getElementById("product-engine").value = "";
+            document.getElementById("product-brand").value = "";
             document.getElementById("product-img").value = "";
           } else {
             alert("Không tìm thấy hàm addProduct!");

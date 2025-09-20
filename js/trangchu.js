@@ -29,6 +29,7 @@ async function renderNavbarLoggedIn(email, role) {
   navbar.innerHTML = `
     <div class="logo">🏠 Trang Chủ</div>
     <div class="menu">
+    <a href="giohang.html" class="navbar-link">🛒 Giỏ hàng</a>
       <input type="text" id="navbar-search" class="navbar-search" placeholder="Tìm kiếm sản phẩm..." />
       <span class="navbar-user">${email}</span>
       ${
