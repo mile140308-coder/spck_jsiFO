@@ -26,8 +26,23 @@
       <h2>Thêm sản phẩm mới</h2>
       <label>Tên sản phẩm: <input type="text" id="product-name" /></label><br /><br />
       <label>Giá: <input type="number" id="product-price" /></label><br /><br />
-      <label>Loại: <input type="text" id="product-type" /></label><br /><br />
-      <label>Engine: <input type="text" id="product-engine" /></label><br /><br />
+      <label>
+        Loại:
+        <select id="product-type">
+          <option value="">--Chọn loại--</option>
+          <option value="motor">motor</option>
+          <option value="bicycle">bicycle</option>
+        </select>
+      </label><br /><br />
+      <label>
+        Engine:
+        <select id="product-engine">
+          <option value="">--Chọn engine--</option>
+          <option value="none">none</option>
+          <option value="electric">electric</option>
+          <option value="gasoline">gasoline</option>
+        </select>
+      </label><br /><br />
       <label>Thương hiệu: <input type="text" id="product-brand" /></label><br /><br />
       <label>Link ảnh (Cloudinary): <input type="text" id="product-img" /></label><br /><br />
       <button id="save-product" class="upload-btn">💾 Lưu sản phẩm vào Firestore</button>
@@ -48,8 +63,8 @@
         saveBtn.onclick = async () => {
           const name = document.getElementById("product-name").value.trim();
           const price = Number(document.getElementById("product-price").value);
-          const type = document.getElementById("product-type").value.trim();
-          const engine = document.getElementById("product-engine").value.trim();
+          const type = document.getElementById("product-type").value;
+          const engine = document.getElementById("product-engine").value;
           const brand = document.getElementById("product-brand").value.trim();
           const img = document.getElementById("product-img").value.trim();
 
