@@ -82,6 +82,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   productList.innerHTML = `<p>⏳ Đang tải...</p>`;
 
   let products = [];
+  let currentPage = 1;
+  let totalPage = 1;
+  let lastFiltered = [];
+
   try {
     const snap = await getDocs(collection(db, "product"));
     if (snap.empty) {
@@ -91,19 +95,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     products = snap.docs.map((d) => {
       const v = d.data();
+      // Hiển thị tiếng Việt cho loại và engine
+      const theLoai = { motor: "Xe máy", bicycle: "Xe đạp" }[v.type] || v.type || "";
+      const dongCo = { none: "Không có động cơ", electric: "Động cơ điện", gasoline: "Động cơ ga" }[v.engine] || v.engine || "";
       return {
         id: d.id,
         name: v.name || "Sản phẩm",
         img: v.img || "",
         price: v.price || 0,
-        type: v.type || "",
-        engine: v.engine || "",
+        type: theLoai || "",
+        engine: dongCo || "",
         brand: v.brand || "",
       };
     });
 
     // Khi vào trang, chỉ hiển thị tất cả sản phẩm
-    renderProducts(products);
+    renderProducts(products, 1);
 
     document.querySelectorAll(".add-to-cart").forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -127,7 +134,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const searchInput = document.getElementById("navbar-search");
   const searchBtn = document.getElementById("search-btn");
 
-  function doSearch() {
+  function doSearch(page = 1) {
     const keyword = searchInput.value.trim().toLowerCase();
 
     // Chỉ hiện sản phẩm khi nhấn Enter hoặc nút tìm kiếm
@@ -138,8 +145,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Xử lý từ khóa đặc biệt cho loại/type
     let typeFilter = "";
-    if (keyword.includes("xe đạp")) typeFilter = "bicycle";
-    if (keyword.includes("xe điện") || keyword.includes("xe máy")) typeFilter = "motor";
+    if (keyword.includes("xe đạp")) typeFilter = "Xe đạp";
+    if (keyword.includes("xe điện") || keyword.includes("xe máy")) typeFilter = "Xe máy";
 
     // Xử lý từ khóa đặc biệt cho engine
     let engineFilter = "";
@@ -147,16 +154,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       keyword.includes("không có động cơ") ||
       keyword.includes("không có")
     )
-      engineFilter = "none";
+      engineFilter = "Không có động cơ";
     if (
       keyword.includes("động cơ điện")
     )
-      engineFilter = "electric";
+      engineFilter = "Động cơ điện";
     if (
       keyword.includes("động cơ ga") ||
       keyword.includes("ga")
     )
-      engineFilter = "gasoline";
+      engineFilter = "Động cơ ga";
 
     // Lọc dữ liệu
     const filtered = products.filter((p) => {
@@ -175,14 +182,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       return false;
     });
 
-    renderProducts(filtered);
+    lastFiltered = filtered;
+    currentPage = page;
+    totalPage = Math.ceil(filtered.length / 8) || 1;
+    renderProducts(filtered, page);
   }
 
   if (searchInput) {
     // Không render khi gõ, chỉ khi Enter hoặc nút
     searchInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
-        doSearch();
+        doSearch(1);
         searchInput.blur();
       }
     });
@@ -199,33 +209,82 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Thêm nút tìm kiếm (có chức năng tương tự Enter)
   if (searchBtn) {
     searchBtn.addEventListener("click", () => {
-      doSearch();
+      doSearch(1);
       searchInput.blur();
     });
   }
 
-  // Hàm render sản phẩm
-  function renderProducts(arr) {
+  // Hàm render sản phẩm với phân trang
+  function renderProducts(arr, page = 1) {
     if (!arr.length) {
       productList.innerHTML = "<p>⚠ Không tìm thấy sản phẩm phù hợp.</p>";
       return;
     }
-    productList.innerHTML = arr
+    const perPage = 8;
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    const pageArr = arr.slice(start, end);
+
+    productList.innerHTML = pageArr
       .map(
         (p) => `
-      <div class="product-item" id="product-${p.id}">
+      <div class="product-item" id="product-${p.id}" style="position:relative;">
         <a href="sp.html?id=${p.id}" class="product-link">
           <h3 class="product-name">${p.name}</h3>
         </a>
         <img src="${p.img || 'https://via.placeholder.com/150'}" alt="${p.name}" class="product-img" />
         <p class="product-price">Giá: ${(Number(p.price)||0).toLocaleString("vi-VN")} VND</p>
         <p>Thương hiệu: ${p.brand}</p>
-        <p>Loại: ${p.type} | Engine: ${p.engine}</p>
+        <p>Loại: ${getProductDisplayName(p.type, p.engine)}</p>
         <button class="add-to-cart product-btn" data-id="${p.id}">➕ Thêm vào giỏ hàng</button>
         <div id="msg-${p.id}" class="cart-msg"></div>
+        <div class="page-indicator" style="position:absolute;bottom:8px;right:12px;font-size:0.98rem;color:#888;">
+          ${page}/${Math.ceil(arr.length/perPage) || 1}
+        </div>
       </div>
     `
       )
       .join("");
+
+    // Thêm nút chuyển trang nếu có nhiều hơn 1 trang
+    if (arr.length > perPage) {
+      const nav = document.createElement("div");
+      nav.style.textAlign = "center";
+      nav.style.marginTop = "18px";
+      nav.innerHTML = `
+        <button id="prev-page" class="product-btn" ${page <= 1 ? "disabled" : ""} style="margin-right:10px;">← Trang trước</button>
+        <span style="font-size:1.1rem;">Trang ${page}/${Math.ceil(arr.length/perPage)}</span>
+        <button id="next-page" class="product-btn" ${page >= Math.ceil(arr.length/perPage) ? "disabled" : ""} style="margin-left:10px;">Trang sau →</button>
+      `;
+      productList.appendChild(nav);
+
+      document.getElementById("prev-page").onclick = () => {
+        if (page > 1) renderProducts(arr, page - 1);
+      };
+      document.getElementById("next-page").onclick = () => {
+        if (page < Math.ceil(arr.length / perPage)) renderProducts(arr, page + 1);
+      };
+    }
   }
 });
+
+function getProductDisplayName(type, engine) {
+  if (type === "Xe đạp") {
+    if (engine === "Không có động cơ") return "Xe đạp";
+    if (engine === "Động cơ điện") return "Xe đạp điện";
+    if (engine === "Động cơ ga") return "Xe đạp ga";
+  }
+  if (type === "Xe máy") {
+    if (engine === "Động cơ ga") return "Xe máy ga";
+    if (engine === "Động cơ điện") return "Xe máy điện";
+    if (engine === "Không có động cơ") return "ERROR/LỖI";
+  }
+  return `${type} ${engine}`.trim();
+}
+
+// Ví dụ sử dụng:
+console.log(getProductDisplayName("Xe đạp", "Không có động cơ")); // Xe đạp
+console.log(getProductDisplayName("Xe đạp", "Động cơ điện")); // Xe đạp điện
+console.log(getProductDisplayName("Xe đạp", "Động cơ ga")); // Xe đạp ga
+console.log(getProductDisplayName("Xe máy", "Động cơ ga")); // Xe máy tay ga
+console.log(getProductDisplayName("Xe máy", "Động cơ điện")); // Xe máy điện

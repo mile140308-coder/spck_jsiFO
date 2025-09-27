@@ -1,0 +1,153 @@
+[
+
+  {
+    "ten": "Honda Winner X",
+    "thuong_hieu": "Honda",
+    "gia": 46000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "Yamaha Exciter 155",
+    "thuong_hieu": "Yamaha",
+    "gia": 47000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "Suzuki Raider R150",
+    "thuong_hieu": "Suzuki",
+    "gia": 49000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "VinFast Klara A2",
+    "thuong_hieu": "VinFast",
+    "gia": 22000000,
+    "loai_dong_co": "electric"
+  },
+  {
+    "ten": "Yadea E3",
+    "thuong_hieu": "Yadea",
+    "gia": 16000000,
+    "loai_dong_co": "electric"
+  },
+  {
+    "ten": "Giant Momentum Vida",
+    "thuong_hieu": "Giant",
+    "gia": 9500000,
+    "loai_dong_co": "none"
+  },
+  {
+    "ten": "Trek Marlin 7",
+    "thuong_hieu": "Trek",
+    "gia": 22000000,
+    "loai_dong_co": "none"
+  },
+  {
+    "ten": "Cannondale Trail 5",
+    "thuong_hieu": "Cannondale",
+    "gia": 18000000,
+    "loai_dong_co": "none"
+  },
+  {
+    "ten": "Giant Explore E+ 2",
+    "thuong_hieu": "Giant",
+    "gia": 60000000,
+    "loai_dong_co": "electric"
+  },
+  {
+    "ten": "Trek Powerfly 4",
+    "thuong_hieu": "Trek",
+    "gia": 82000000,
+    "loai_dong_co": "electric"
+  },
+  {
+    "ten": "Honda Air Blade 160",
+    "thuong_hieu": "Honda",
+    "gia": 55000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "Yamaha NVX 155",
+    "thuong_hieu": "Yamaha",
+    "gia": 55000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "Piaggio Liberty 125",
+    "thuong_hieu": "Piaggio",
+    "gia": 48000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "SYM Attila 125",
+    "thuong_hieu": "SYM",
+    "gia": 34000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "Pega Aura",
+    "thuong_hieu": "Pega",
+    "gia": 17000000,
+    "loai_dong_co": "electric"
+  },
+  {
+    "ten": "Yadea Ulike",
+    "thuong_hieu": "Yadea",
+    "gia": 16000000,
+    "loai_dong_co": "electric"
+  },
+  {
+    "ten": "Giant Talon 3",
+    "thuong_hieu": "Giant",
+    "gia": 12000000,
+    "loai_dong_co": "none"
+  },
+  {
+    "ten": "Trek FX 3 Disc",
+    "thuong_hieu": "Trek",
+    "gia": 20000000,
+    "loai_dong_co": "none"
+  },
+  {
+    "ten": "Merida Big Nine 300",
+    "thuong_hieu": "Merida",
+    "gia": 17000000,
+    "loai_dong_co": "none"
+  },
+  {
+    "ten": "Specialized Turbo Vado SL",
+    "thuong_hieu": "Specialized",
+    "gia": 95000000,
+    "loai_dong_co": "electric"
+  },
+  {
+    "ten": "Cannondale Synapse NEO",
+    "thuong_hieu": "Cannondale",
+    "gia": 120000000,
+    "loai_dong_co": "electric"
+  },
+  {
+    "ten": "Honda Wave Alpha",
+    "thuong_hieu": "Honda",
+    "gia": 21000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "Yamaha Sirius FI",
+    "thuong_hieu": "Yamaha",
+    "gia": 22000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "Suzuki Smash FI",
+    "thuong_hieu": "Suzuki",
+    "gia": 21000000,
+    "loai_dong_co": "gasoline"
+  },
+  {
+    "ten": "SYM Elegant 50",
+    "thuong_hieu": "SYM",
+    "gia": 17000000,
+    "loai_dong_co": "gasoline"
+  }
+]
