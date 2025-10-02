@@ -45,6 +45,7 @@
       </label><br /><br />
       <label>Thương hiệu: <input type="text" id="product-brand" /></label><br /><br />
       <label>Link ảnh (Cloudinary): <input type="text" id="product-img" /></label><br /><br />
+      <label>Mô tả: <textarea id="product-desc" rows="2"></textarea></label><br /><br />
       <button id="save-product" class="upload-btn">💾 Lưu sản phẩm vào Firestore</button>
     </section>
 
@@ -67,6 +68,7 @@
           const engine = document.getElementById("product-engine").value;
           const brand = document.getElementById("product-brand").value.trim();
           const img = document.getElementById("product-img").value.trim();
+          const desc = document.getElementById("product-desc").value.trim();
 
           if (!name || !type || !engine || !img || !price || !brand) {
             alert("Vui lòng nhập đầy đủ thông tin sản phẩm!");
@@ -74,13 +76,14 @@
           }
 
           if (typeof window.addProduct === "function") {
-            await window.addProduct({ name, price, type, engine, img, brand });
+            await window.addProduct({ name, price, type, engine, img, brand, desc });
             document.getElementById("product-name").value = "";
             document.getElementById("product-price").value = "";
             document.getElementById("product-type").value = "";
             document.getElementById("product-engine").value = "";
             document.getElementById("product-brand").value = "";
             document.getElementById("product-img").value = "";
+            document.getElementById("product-desc").value = "";
           } else {
             alert("Không tìm thấy hàm addProduct!");
           }
