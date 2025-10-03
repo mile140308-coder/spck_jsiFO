@@ -1,47 +1,4 @@
 [
-
-  {
-    "ten": "Honda Winner X",
-    "thuong_hieu": "Honda",
-    "gia": 46000000,
-    "loai_dong_co": "gasoline"
-  },
-  {
-    "ten": "Yamaha Exciter 155",
-    "thuong_hieu": "Yamaha",
-    "gia": 47000000,
-    "loai_dong_co": "gasoline"
-  },
-  {
-    "ten": "Suzuki Raider R150",
-    "thuong_hieu": "Suzuki",
-    "gia": 49000000,
-    "loai_dong_co": "gasoline"
-  },
-  {
-    "ten": "VinFast Klara A2",
-    "thuong_hieu": "VinFast",
-    "gia": 22000000,
-    "loai_dong_co": "electric"
-  },
-  {
-    "ten": "Yadea E3",
-    "thuong_hieu": "Yadea",
-    "gia": 16000000,
-    "loai_dong_co": "electric"
-  },
-  {
-    "ten": "Giant Momentum Vida",
-    "thuong_hieu": "Giant",
-    "gia": 9500000,
-    "loai_dong_co": "none"
-  },
-  {
-    "ten": "Trek Marlin 7",
-    "thuong_hieu": "Trek",
-    "gia": 22000000,
-    "loai_dong_co": "none"
-  },
   {
     "ten": "Cannondale Trail 5",
     "thuong_hieu": "Cannondale",

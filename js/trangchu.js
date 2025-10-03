@@ -14,7 +14,7 @@ function renderNavbarLoggedOut() {
   if (!navbar) return;
   navbar.className = "navbar";
   navbar.innerHTML = `
-    <div class="logo">🏠 Trang Chủ</div>
+    <div class="logo">🏠 Cửa hàng LMI</div>
     <div class="menu">
       <a href="login.html" class="navbar-link">Đăng nhập</a>
       <a href="signup.html" class="navbar-link">Đăng ký</a>
@@ -26,7 +26,7 @@ async function renderNavbarLoggedIn(email, role) {
   if (!navbar) return;
   navbar.className = "navbar";
   navbar.innerHTML = `
-    <div class="logo">🏠 Trang Chủ</div>
+    <div class="logo">🏠Cửa hàng LMI</div>
     <div class="menu">
     <a href="giohang.html" class="navbar-link">🛒 Giỏ hàng</a>
       <span class="navbar-user">${email}</span>
@@ -71,7 +71,17 @@ onAuthStateChanged(auth, async (user) => {
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (footer) footer.classList.add("footer");
-  if (footer) footer.innerHTML = `<p>© 2025 Cửa Hàng Xe</p>`;
+  if (footer) footer.innerHTML = `<div class="footer-content" style="text-align:center; line-height:1.8;">
+        <p><strong>Liên hệ:</strong> 📞 0123 456 789 | ✉️ email@example.com</p>
+        <p>
+          🌐 Kết nối với chúng tôi: 
+          <a href="https://zalo.me/" target="_blank">Zalo</a> | 
+          <a href="https://facebook.com/" target="_blank">Facebook</a> | 
+          <a href="https://youtube.com/" target="_blank">YouTube</a>
+        </p>
+        <p>🏢 Cửa hàng <strong>LMI</strong></p>
+        <p>© 2025 Bản quyền thuộc <strong>MIL Inc</strong>. All rights reserved.</p>
+      </div>`;
 
   const productList = document.getElementById("the");
   if (!productList) {
