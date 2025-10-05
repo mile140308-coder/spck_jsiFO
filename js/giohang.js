@@ -15,7 +15,8 @@ export async function loadCart() {
 
   const cart = getCart();
   if (!cart.length) {
-    container.innerHTML = "<p>🛒 Giỏ hàng trống.</p>";
+    container.innerHTML = "<p class='empty-cart'>🛒 Giỏ hàng trống.</p>";
+    totalContainer.innerHTML = "";
     return;
   }
 
@@ -28,20 +29,22 @@ export async function loadCart() {
         console.warn("Không tìm thấy product id:", item.id);
         continue;
       }
+
       const p = prodSnap.data();
       const itemTotal = (Number(p.price) || 0) * item.quantity;
       total += itemTotal;
 
       const card = document.createElement("div");
-      card.className = "product-card";
-      card.style = "border:1px solid #ccc; padding:12px; margin:8px; border-radius:8px;";
+      card.className = "cart-item";
       card.innerHTML = `
-        <img src="${p.img || "https://via.placeholder.com/150"}" alt="${p.name || ""}" style="max-width:150px;">
-        <h3>${p.name || ""}</h3>
-        <p>Giá: ${(Number(p.price) || 0).toLocaleString("vi-VN")} VND</p>
-        <p>Số lượng: x${item.quantity}</p>
-        <p>Tổng: ${itemTotal.toLocaleString("vi-VN")} VND</p>
-        <button class="btn remove-item" data-id="${item.id}">🗑️ Xóa</button>
+        <img src="${p.img || "https://via.placeholder.com/150"}" alt="${p.name || ""}">
+        <div class="item-info">
+          <h3>${p.name || ""}</h3>
+          <p>Giá: ${(Number(p.price) || 0).toLocaleString("vi-VN")} VND</p>
+          <p>Số lượng: x${item.quantity}</p>
+          <p>Tổng: ${itemTotal.toLocaleString("vi-VN")} VND</p>
+        </div>
+        <button class="remove-item" data-id="${item.id}">🗑️ Xóa</button>
       `;
       container.appendChild(card);
 
@@ -54,23 +57,35 @@ export async function loadCart() {
     }
   }
 
+  // === Thanh tổng tiền cố định ===
   const totalDiv = document.createElement("div");
+  totalDiv.className = "cart-total-fixed";
   totalDiv.innerHTML = `
-    <hr>
-    <h3>Tổng cộng: ${(total || 0).toLocaleString("vi-VN")} VND</h3>
-    <button id="clearCartBtn" class="btn">🧹 Xóa toàn bộ giỏ hàng</button>
+    <div class="cart-total-content">
+      <h3>Tổng cộng: ${(total || 0).toLocaleString("vi-VN")} VND</h3>
+      <div class="cart-buttons">
+        <button id="checkoutBtn" class="btn-pay">💳 Thanh toán</button>
+        <button id="clearCartBtn" class="btn-clear">🧹 Xóa toàn bộ</button>
+      </div>
+    </div>
   `;
   totalContainer.appendChild(totalDiv);
 
+  // 🧹 Sự kiện nút “Xóa toàn bộ”
   document.getElementById("clearCartBtn").addEventListener("click", () => {
     if (confirm("Bạn có chắc muốn xóa toàn bộ giỏ hàng?")) {
       clearCart();
       loadCart();
     }
   });
+
+  // 💳 Sự kiện nút “Thanh toán” → chuyển hướng sang thanhtoan.html
+  document.getElementById("checkoutBtn").addEventListener("click", () => {
+    window.location.href = "thanhtoan.html";
+  });
 }
 
-// tự động load khi vào page chứa #cartList
+// Tự động load khi có #cartList
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("cartList")) {
     loadCart();

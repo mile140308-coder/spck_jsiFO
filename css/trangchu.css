@@ -342,3 +342,129 @@ color :black;
   font-size: 0.9rem;
   color: #555;
 }
+/* ==== GIỎ HÀNG ==== */
+.mainshop {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mainshop h1 {
+  text-align: center;
+  color: #333;
+}
+
+.mainshop #cartList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 100px; /* chừa chỗ cho thanh tổng tiền cố định */
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  gap: 16px;
+}
+
+.cart-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-info {
+  flex-grow: 1;
+}
+
+.remove-item {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.remove-item:hover {
+  background: #b02a37;
+}
+
+/* === Thanh tổng tiền cố định === */
+.cart-total-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
+  z-index: 100;
+  text-align: center;
+}
+
+.cart-total-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cart-total-content h3 {
+  margin: 0;
+  color: #222;
+  font-size: 1.3rem;
+}
+
+/* Nút thanh toán và xóa toàn bộ */
+.cart-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-clear,
+.btn-pay {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Nút “Thanh toán” */
+.btn-pay {
+  background: #28a745;
+  color: white;
+}
+
+.btn-pay:hover {
+  background: #218838;
+}
+
+/* Nút “Xóa toàn bộ” */
+.btn-clear {
+  background: #ffc107;
+  color: #000;
+}
+
+.btn-clear:hover {
+  background: #e0a800;
+}
+
+.empty-cart {
+  text-align: center;
+  color: #777;
+  font-size: 1.1em;
+  padding: 40px 0;
+}
