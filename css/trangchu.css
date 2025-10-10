@@ -1,3 +1,7 @@
+/* ======================== */
+/* CỬA HÀNG LMI - GIAO DIỆN CHÍNH */
+/* ======================== */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -39,9 +43,11 @@ main {
   padding: 20px;
 }
 
-/* Vùng sản phẩm */
+/* ================================= */
+/* 🛒 VÙNG SẢN PHẨM - BỐ CỤC MỚI GỌN GÀNG */
+/* ================================= */
 #ban.product-section {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 32px auto;
   background: #fff;
   border-radius: 12px;
@@ -64,136 +70,132 @@ main {
   font-size: 1.1rem;
 }
 
-/* Đảm bảo các thẻ sản phẩm đều nhau và đẹp */
+/* Lưới sản phẩm */
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 24px;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   align-items: stretch;
+  justify-content: center;
 }
 
+/* Thẻ sản phẩm */
 .product-item {
-  background: #f9f9f9;
+  background: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
-  padding: 22px 16px 18px 16px;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  padding: 20px 16px 24px 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: box-shadow 0.2s, transform 0.18s;
-  width: 100%;
-  min-height: 410px;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+  min-height: 430px;
   box-sizing: border-box;
-  justify-content: flex-start;
+  text-align: center;
 }
+
 .product-item:hover {
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.product-item h2,
-.product-item h3 {
-  font-size: 1.18rem;
-  margin: 0 0 10px 0;
-  color: #1976d2;
-  text-align: center;
-  font-weight: bold;
-}
-
-.product-item p {
-  margin: 6px 0;
-  color: #444;
-  font-size: 1.04rem;
-  text-align: center;
-  width: 100%;
-  word-break: break-word;
-}
-
+/* Ảnh sản phẩm */
 .product-item img {
-  margin: 12px 0 14px 0;
   width: 100%;
-  max-width: 170px;
-  min-height: 120px;
+  max-width: 200px;
+  height: 160px;
   object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.09);
-  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  background-color: #fafafa;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
 }
 
+/* Tên sản phẩm */
+.product-item h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1976d2;
+  margin-bottom: 10px;
+}
+
+/* Văn bản thông tin (giá, loại, thương hiệu...) */
+.product-item p {
+  font-size: 1rem;
+  color: #333;
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+/* Nút thêm vào giỏ */
 .product-item .add-to-cart,
 .product-item .product-btn {
   background: #1976d2;
   color: #fff;
   border: none;
-  border-radius: 6px;
-  padding: 10px 22px;
+  border-radius: 8px;
+  padding: 10px 18px;
   margin-top: 14px;
-  font-size: 1.08rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.18s, box-shadow 0.18s, transform 0.13s;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
-  outline: none;
-  display: inline-block;
-  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
 }
 
 .product-item .add-to-cart:hover,
 .product-item .product-btn:hover {
   background: #1256a3;
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18);
-  transform: translateY(-2px) scale(1.04);
+  transform: scale(1.05);
 }
 
 .product-item .add-to-cart:active,
 .product-item .product-btn:active {
+  transform: scale(0.97);
   background: #0d3c6e;
-  color: #fff;
-  transform: scale(0.98);
 }
 
-.product-item .cart-msg {
+/* Tin nhắn thêm giỏ hàng */
+.cart-msg {
+  margin-top: 10px;
   min-height: 18px;
-  font-size: 0.97rem;
+  font-size: 0.95rem;
   color: #4caf50;
-  margin-top: 6px;
-  text-align: center;
   font-weight: 500;
 }
-.product-link {text-decoration: none;
-background-color: #e0e0e0;
-color :black;
-}
-.product-link:hover {
-  background-color: #c0c0c0;
-  color: black;
-}
-.product-link:visited {
-  color: #ff0;
-}
-#mau-xe a {
+
+/* Liên kết sản phẩm */
+.product-link {
   text-decoration: none;
-  background-color: #1976d2;
-  color: white;
-  padding: 10px 22px;
-  border-radius: 6px;
-  font-size: 1.08rem;
-  font-weight: 600;
-  display: inline-block;
-  margin-top: 14px;
+  background-color: transparent;
+  color: #1976d2;
+  transition: 0.3s;
 }
-#mau-xe a:hover {
-  background-color: #1256a3;
-  color: white;
+
+.product-link:hover {
+  color: #1256a3;
 }
-#mau-xe a:active {
-  background-color: #0d3c6e;
-  color: white;
+
+/* Responsive */
+@media (max-width: 600px) {
+  .product-item {
+    padding: 16px 10px;
+    min-height: 380px;
+  }
+  .product-item img {
+    max-width: 150px;
+    height: 130px;
+  }
 }
-/* Chi tiết sản phẩm */
+
+/* ========================= */
+/* CHI TIẾT SẢN PHẨM, REVIEW, GIỎ HÀNG */
+/* ========================= */
 #mau-xe {
   max-width: 500px;
   margin: 40px auto 0 auto;
@@ -228,18 +230,7 @@ color :black;
   text-align: center;
 }
 
-/* Responsive cho chi tiết sản phẩm */
-@media (max-width: 600px) {
-  #mau-xe {
-    padding: 18px 6px;
-  }
-  #mau-xe img {
-    max-width: 98vw;
-  }
-}
-/* ========================= */
-/* ĐÁNH GIÁ & REVIEW FORM    */
-/* ========================= */
+/* Đánh giá */
 #reviews {
   max-width: 700px;
   margin: 40px auto 20px auto;
@@ -248,14 +239,12 @@ color :black;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 24px 20px;
 }
-
 #reviews h3 {
   font-size: 1.5rem;
   color: #1976d2;
   margin-bottom: 16px;
   text-align: center;
 }
-
 .review-item {
   padding: 12px;
   border-radius: 8px;
@@ -263,16 +252,8 @@ color :black;
   margin-bottom: 14px;
   box-shadow: 0 1px 6px rgba(0,0,0,0.06);
 }
-
-.review-item p {
-  margin: 4px 0;
-  font-size: 1rem;
-  color: #333;
-}
-
-.review-item b {
-  color: #1976d2;
-}
+.review-item p { margin: 4px 0; font-size: 1rem; color: #333; }
+.review-item b { color: #1976d2; }
 
 /* Form đánh giá */
 #review-form {
@@ -286,14 +267,6 @@ color :black;
   flex-direction: column;
   gap: 12px;
 }
-
-#review-form h3 {
-  font-size: 1.4rem;
-  margin-bottom: 8px;
-  color: #1976d2;
-  text-align: center;
-}
-
 #review-form textarea,
 #review-form input[type="number"] {
   width: 100%;
@@ -301,16 +274,7 @@ color :black;
   border-radius: 6px;
   padding: 10px;
   font-size: 1rem;
-  resize: vertical;
 }
-
-#review-form textarea:focus,
-#review-form input[type="number"]:focus {
-  border-color: #1976d2;
-  outline: none;
-  box-shadow: 0 0 6px rgba(25, 118, 210, 0.3);
-}
-
 #review-form button {
   background: #1976d2;
   color: #fff;
@@ -323,15 +287,9 @@ color :black;
   transition: background 0.18s, transform 0.13s;
   align-self: center;
 }
-
 #review-form button:hover {
   background: #1256a3;
   transform: scale(1.03);
-}
-
-#review-form button:active {
-  background: #0d3c6e;
-  transform: scale(0.97);
 }
 
 /* Footer */
@@ -342,7 +300,8 @@ color :black;
   font-size: 0.9rem;
   color: #555;
 }
-/* ==== GIỎ HÀNG ==== */
+
+/* Giỏ hàng */
 .mainshop {
   max-width: 900px;
   margin: 40px auto;
@@ -351,120 +310,100 @@ color :black;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+.mainshop h1 { text-align: center; color: #333; }
 
-.mainshop h1 {
-  text-align: center;
-  color: #333;
+/* ============================================= */
+/* 🌗 DARK MODE + MÀU CHỦ ĐẠO CỬA HÀNG XE ĐẠP   */
+/* ============================================= */
+:root {
+  --main-orange: #ff9800;
+  --main-blue: #1976d2;
+  --main-red: #e53935;
+  --main-black: #111;
 }
 
-.mainshop #cartList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 100px; /* chừa chỗ cho thanh tổng tiền cố định */
-}
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  background: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 12px;
-  gap: 16px;
-}
-
-.cart-item img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.item-info {
-  flex-grow: 1;
-}
-
-.remove-item {
-  background: #dc3545;
-  color: white;
+/* Nút chuyển chế độ */
+#darkModeToggle {
+  background: var(--main-orange);
+  color: #000;
   border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.remove-item:hover {
-  background: #b02a37;
-}
-
-/* === Thanh tổng tiền cố định === */
-.cart-total-fixed {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
-  padding: 15px 0;
-  z-index: 100;
-  text-align: center;
-}
-
-.cart-total-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.cart-total-content h3 {
-  margin: 0;
-  color: #222;
-  font-size: 1.3rem;
-}
-
-/* Nút thanh toán và xóa toàn bộ */
-.cart-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-clear,
-.btn-pay {
-  border: none;
-  padding: 10px 18px;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 8px 14px;
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
 }
-
-/* Nút “Thanh toán” */
-.btn-pay {
-  background: #28a745;
-  color: white;
+#darkModeToggle:hover {
+  background: var(--main-blue);
+  color: #fff;
+  transform: scale(1.05);
 }
 
-.btn-pay:hover {
-  background: #218838;
+/* LIGHT MODE */
+body {
+  background-color: #f8f8f8;
+  color: #222;
+  transition: background 0.3s, color 0.3s;
+}
+nav {
+  background: linear-gradient(90deg, var(--main-black), var(--main-blue));
+}
+nav .logo {
+  color: var(--main-orange);
+  font-weight: 700;
 }
 
-/* Nút “Xóa toàn bộ” */
-.btn-clear {
-  background: #ffc107;
+/* DARK MODE */
+body.dark-mode {
+  background-color: #121212;
+  color: #eaeaea;
+}
+body.dark-mode nav {
+  background: linear-gradient(90deg, #000, #222);
+}
+body.dark-mode .product-title {
+  color: var(--main-orange);
+}
+body.dark-mode .product-item,
+body.dark-mode #ban.product-section,
+body.dark-mode #mau-xe,
+body.dark-mode #reviews,
+body.dark-mode #review-form,
+body.dark-mode .mainshop {
+  background: #1e1e1e;
+  border-color: #333;
+  color: #eaeaea;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+body.dark-mode .product-item h3,
+body.dark-mode #reviews h3,
+body.dark-mode #review-form h3 {
+  color: var(--main-orange);
+}
+body.dark-mode .product-item p,
+body.dark-mode .review-item p {
+  color: #ccc;
+}
+body.dark-mode .product-btn,
+body.dark-mode .add-to-cart,
+body.dark-mode #review-form button {
+  background: var(--main-orange);
   color: #000;
 }
-
-.btn-clear:hover {
-  background: #e0a800;
+body.dark-mode .product-btn:hover,
+body.dark-mode .add-to-cart:hover {
+  background: var(--main-red);
+  color: #fff;
 }
-
-.empty-cart {
-  text-align: center;
-  color: #777;
-  font-size: 1.1em;
-  padding: 40px 0;
+body.dark-mode a {
+  color: var(--main-blue);
+}
+body.dark-mode .footer {
+  background: #111;
+  color: #aaa;
+}
+body.dark-mode .cart-total-fixed {
+  background: #1b1b1b;
+  color: #fff;
+  box-shadow: 0 -3px 10px rgba(255, 255, 255, 0.1);
 }

@@ -1,1 +1,30 @@
-main{background-image: url(https://res.cloudinary.com/da1idy1xu/image/upload/v1759661377/ymknxlrlkk1d7mmpb9ug.png);}
+body{margin: 0;
+padding: 0;
+font-family: Arial, sans-serif; 
+background-color: #f5f5f5;
+display: flex;
+justify-content: center;   
+align-items: center;   
+height: 100vh;
+}
+main {
+    margin: auto;
+    text-align:  center;
+    background-color: ivory;
+    width: 400px;   
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+h4{margin-bottom: 20px;
+color: #444;
+padding: 10px 20px ;
+background-color: lavender;
+border-radius: 5px;}
+a {
+    text-decoration: none;
+    color: #333;
+    background-color: slategray;
+    padding: 10px 20px;
+    border-radius: 5px;
+}

@@ -7,22 +7,34 @@
     <link rel="stylesheet" href="../css/trangchu.css" />
   </head>
   <body>
-<div id="mau-xe"></div>
+    <div id="mau-xe"></div>
 
-<!-- Khu vực đánh giá -->
-<div id="reviews"></div>
+    <!-- Khu vực đánh giá -->
+    <div id="reviews"></div>
 
-<!-- Form đánh giá (ẩn nếu chưa đăng nhập) -->
-<form id="review-form" style="display:none; margin-top:20px;">
-  <h3>Viết đánh giá</h3>
-  <textarea id="review-text" placeholder="Nhập đánh giá..." required></textarea><br>
-  <input type="number" id="review-score" min="1" max="10" placeholder="Điểm (1-10)" required><br>
-  <button type="submit">Gửi đánh giá</button>
-</form>
+    <!-- Form đánh giá (ẩn nếu chưa đăng nhập) -->
+    <form id="review-form" style="display: none; margin-top: 20px">
+      <h3>Viết đánh giá</h3>
+      <textarea
+        id="review-text"
+        placeholder="Nhập đánh giá..."
+        required
+      ></textarea
+      ><br />
+      <input
+        type="number"
+        id="review-score"
+        min="1"
+        max="10"
+        placeholder="Điểm (1-10)"
+        required
+      /><br />
+      <button type="submit">Gửi đánh giá</button>
+    </form>
 
     <script type="module" src="../js/firebase/firebase-config.js"></script>
     <script type="module" src="../js/firebase/auth.js"></script>
     <script type="module" src="../js/sp.js"></script>
-    <!-- <script src="../js/sp.js"></script> -->
+    <script type="module" src="../js/theme.js"></script>
   </body>
 </html>
