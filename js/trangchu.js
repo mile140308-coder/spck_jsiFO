@@ -72,12 +72,12 @@ onAuthStateChanged(auth, async (user) => {
 document.addEventListener("DOMContentLoaded", async () => {
   if (footer) footer.classList.add("footer");
   if (footer) footer.innerHTML = `<div class="footer-content" style="text-align:center; line-height:1.8;">
-        <p><strong>Liên hệ:</strong> 📞 0123 456 789 | ✉️ email@example.com</p>
+        <p><strong>Liên hệ:</strong> 📞 0123 456 789 | ✉️ mi1lee098@gmail.com</p>
         <p>
           🌐 Kết nối với chúng tôi: 
-          <a href="https://zalo.me/" target="_blank">Zalo</a> | 
-          <a href="https://facebook.com/" target="_blank">Facebook</a> | 
-          <a href="https://youtube.com/" target="_blank">YouTube</a>
+          <a class="zalo" href="https://zalo.me/" target="_blank">Zalo</a> | 
+          <a class="fb" href="https://facebook.com/" target="_blank">Facebook</a> | 
+          <a class="ytb" href="https://youtube.com/" target="_blank">YouTube</a>
         </p>
         <p>🏢 Cửa hàng <strong>LMI</strong></p>
         <p>© 2025 Bản quyền thuộc <strong>MIL Inc</strong>. All rights reserved.</p>

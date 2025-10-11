@@ -2,15 +2,25 @@
 /* CỬA HÀNG LMI - GIAO DIỆN CHÍNH */
 /* ======================== */
 
+:root {
+  --main-orange: #ff9800;
+  --main-blue: #1976d2;
+  --main-red: #e53935;
+  --main-black: #111;
+}
+
+/* LIGHT MODE */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #f8f8f8;
+  color: #222;
+  transition: background 0.3s, color 0.3s;
 }
 
-/* Navbar */
 nav {
-  background-color: #333;
+  background: linear-gradient(90deg, var(--main-black), var(--main-blue));
   color: white;
   display: flex;
   justify-content: space-between;
@@ -20,6 +30,7 @@ nav {
 nav .logo {
   font-size: 20px;
   font-weight: bold;
+  color: var(--main-orange);
 }
 nav .menu {
   display: flex;
@@ -59,7 +70,7 @@ main {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 8px;
-  color: #222;
+  color: var(--main-blue);
   text-align: center;
 }
 
@@ -120,7 +131,7 @@ main {
 .product-item h3 {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #1976d2;
+  color: var(--main-blue);
   margin-bottom: 10px;
 }
 
@@ -135,7 +146,7 @@ main {
 /* Nút thêm vào giỏ */
 .product-item .add-to-cart,
 .product-item .product-btn {
-  background: #1976d2;
+  background: var(--main-blue);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -173,7 +184,7 @@ main {
 .product-link {
   text-decoration: none;
   background-color: transparent;
-  color: #1976d2;
+  color: var(--main-blue);
   transition: 0.3s;
 }
 
@@ -210,7 +221,7 @@ main {
 
 #mau-xe h2 {
   font-size: 2rem;
-  color: #1976d2;
+  color: var(--main-blue);
   margin-bottom: 18px;
   text-align: center;
 }
@@ -225,7 +236,7 @@ main {
 
 #mau-xe p {
   font-size: 1.1rem;
-  color: #333;
+  color: #fff;
   margin: 6px 0;
   text-align: center;
 }
@@ -241,7 +252,7 @@ main {
 }
 #reviews h3 {
   font-size: 1.5rem;
-  color: #1976d2;
+  color: var(--main-blue);
   margin-bottom: 16px;
   text-align: center;
 }
@@ -250,10 +261,16 @@ main {
   border-radius: 8px;
   background: #f9f9f9;
   margin-bottom: 14px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
 }
-.review-item p { margin: 4px 0; font-size: 1rem; color: #333; }
-.review-item b { color: #1976d2; }
+.review-item p {
+  margin: 4px 0;
+  font-size: 1rem;
+  color: #111;
+}
+.review-item b {
+  color: var(--main-blue);
+}
 
 /* Form đánh giá */
 #review-form {
@@ -261,7 +278,7 @@ main {
   margin: 20px auto 40px auto;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
@@ -276,7 +293,7 @@ main {
   font-size: 1rem;
 }
 #review-form button {
-  background: #1976d2;
+  background: var(--main-blue);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -292,13 +309,102 @@ main {
   transform: scale(1.03);
 }
 
-/* Footer */
-.footer {
+/* Giỏ hàng */
+#cartList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 32px auto;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.cart-item {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px 16px 24px 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+  min-height: 320px;
+  box-sizing: border-box;
   text-align: center;
-  padding: 12px;
-  background: #f4f4f4;
-  font-size: 0.9rem;
-  color: #555;
+}
+
+.cart-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
+}
+
+.cart-item img {
+  width: 100%;
+  max-width: 140px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background-color: #fafafa;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.cart-item h3 {
+  font-size: 1.08rem;
+  font-weight: bold;
+  color: var(--main-blue);
+  margin-bottom: 8px;
+}
+
+.cart-item p {
+  font-size: 0.98rem;
+  color: #333;
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.cart-item .cart-remove-btn {
+  background: var(--main-red);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 8px 16px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.18s, transform 0.13s;
+  box-shadow: 0 2px 8px rgba(229, 57, 53, 0.10);
+}
+
+.cart-item .cart-remove-btn:hover {
+  background: #b71c1c;
+  transform: scale(1.04);
+}
+
+.cart-item .cart-remove-btn:active {
+  background: #7f0000;
+  transform: scale(0.97);
+}
+
+/* Responsive cho giỏ hàng */
+@media (max-width: 600px) {
+  #cartList {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .cart-item {
+    min-height: 220px;
+    padding: 14px 6px 16px 6px;
+  }
+  .cart-item img {
+    max-width: 90px;
+    height: 70px;
+  }
 }
 
 /* Giỏ hàng */
@@ -310,50 +416,125 @@ main {
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-.mainshop h1 { text-align: center; color: #333; }
+.mainshop h1 {
+  text-align: center;
+  color: #333;
+}
+.cart-total-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  box-shadow: 0 -3px 16px rgba(25, 118, 210, 0.13);
+  border-top: 1px solid #e0e0e0;
+  padding: 18px 0 12px 0;
+  z-index: 100;
+  width: 100vw;
+}
+
+.cart-total-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 24px;
+}
+
+.cart-total-content h3 {
+  font-size: 1.25rem;
+  color: var(--main-blue);
+  margin: 0;
+  font-weight: bold;
+}
+
+.cart-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-pay,
+.btn-clear {
+  background: var(--main-blue);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 9px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.13s;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+}
+
+.btn-pay:hover,
+.btn-clear:hover {
+  background: #1256a3;
+  transform: scale(1.04);
+}
+
+.btn-pay:active,
+.btn-clear:active {
+  background: #0d3c6e;
+  transform: scale(0.97);
+}
+
+/* Responsive cho thanh tổng tiền */
+@media (max-width: 600px) {
+  .cart-total-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 0 8px;
+  }
+  .cart-total-fixed {
+    padding: 12px 0 8px 0;
+  }
+}
+.zalo {
+  color: #0088ff;
+  text-decoration: none;
+  font-weight: bold;
+} 
+.zalo:hover {
+  color: #555;
+}
+.fb {
+  color: #3b5998;
+  text-decoration: none;
+  font-weight: bold;
+}
+.fb:hover {
+  color: #555;
+}
+.ytb{
+  color: #ff0000;
+  text-decoration: none;
+  font-weight: bold;
+}
+.ytb:hover {
+  color: #555;
+}
+/* Footer dưới cùng mỗi light mode */
+.footer {
+  text-align: center;
+  padding: 12px;
+  background: #f4f4f4;
+  font-size: 0.9rem;
+  color: #555;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 10;
+}
 
 /* ============================================= */
 /* 🌗 DARK MODE + MÀU CHỦ ĐẠO CỬA HÀNG XE ĐẠP   */
 /* ============================================= */
-:root {
-  --main-orange: #ff9800;
-  --main-blue: #1976d2;
-  --main-red: #e53935;
-  --main-black: #111;
-}
-
-/* Nút chuyển chế độ */
-#darkModeToggle {
-  background: var(--main-orange);
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 14px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-}
-#darkModeToggle:hover {
-  background: var(--main-blue);
-  color: #fff;
-  transform: scale(1.05);
-}
-
-/* LIGHT MODE */
-body {
-  background-color: #f8f8f8;
-  color: #222;
-  transition: background 0.3s, color 0.3s;
-}
-nav {
-  background: linear-gradient(90deg, var(--main-black), var(--main-blue));
-}
-nav .logo {
-  color: var(--main-orange);
-  font-weight: 700;
-}
-
-/* DARK MODE */
 body.dark-mode {
   background-color: #121212;
   color: #eaeaea;
@@ -361,7 +542,11 @@ body.dark-mode {
 body.dark-mode nav {
   background: linear-gradient(90deg, #000, #222);
 }
-body.dark-mode .product-title {
+body.dark-mode .product-title,
+body.dark-mode .product-item h3,
+body.dark-mode #reviews h3,
+body.dark-mode #review-form h3,
+body.dark-mode .mainshop h1 {
   color: var(--main-orange);
 }
 body.dark-mode .product-item,
@@ -374,11 +559,6 @@ body.dark-mode .mainshop {
   border-color: #333;
   color: #eaeaea;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
-}
-body.dark-mode .product-item h3,
-body.dark-mode #reviews h3,
-body.dark-mode #review-form h3 {
-  color: var(--main-orange);
 }
 body.dark-mode .product-item p,
 body.dark-mode .review-item p {
@@ -398,12 +578,75 @@ body.dark-mode .add-to-cart:hover {
 body.dark-mode a {
   color: var(--main-blue);
 }
-body.dark-mode .footer {
-  background: #111;
-  color: #aaa;
+body.dark-mode .cart-item h3 {
+  color: var(--main-orange);
+}
+body.dark-mode .cart-item {
+  background: #232323;
+  border-color: #333;
+  color: #eaeaea;
+}
+body.dark-mode #review-form textarea,
+body.dark-mode #review-form input[type="number"] {
+   background-color: #222;
+}
+body.dark-mode .review-item {
+  background: #232323;
+  border-color: #333;
+  color: #eaeaea;
+}
+body.dark-mode .cart-item p {
+  color: #ccc;
+}
+body.dark-mode .cart-item .cart-remove-btn {
+  background: var(--main-orange);
+  color: #000;
+}
+body.dark-mode .cart-item .cart-remove-btn:hover {
+  background: var(--main-red);
+  color: #fff;
 }
 body.dark-mode .cart-total-fixed {
   background: #1b1b1b;
   color: #fff;
   box-shadow: 0 -3px 10px rgba(255, 255, 255, 0.1);
 }
+body.dark-mode .cart-total-content h3 {
+  color: var(--main-orange);
+}
+body.dark-mode .btn-pay,
+body.dark-mode .btn-clear {
+  background: var(--main-orange);
+  color: #000;
+}
+body.dark-mode .btn-pay:hover,
+body.dark-mode .btn-clear:hover {
+  background: var(--main-red);
+  color: #fff;
+}
+body.dark-mode .zalo:hover {
+  color: #fff;
+}
+body.dark-mode .fb{
+  color: #3b5998;
+}
+body.dark-mode .fb:hover{
+  color: #fff;
+} 
+body.dark-mode .ytb{
+  color: #ff0000;
+}
+body.dark-mode .ytb:hover{
+  color: #fff;
+} 
+body.dark-mode .footer {
+  background: #111;
+  color: #aaa;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 10;
+}
+
+/* ...giữ nguyên các phần code thừa khác... */
