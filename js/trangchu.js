@@ -256,17 +256,26 @@ document.addEventListener("DOMContentLoaded", async () => {
       )
       .join("");
 
-    // Thêm nút chuyển trang nếu có nhiều hơn 1 trang
+    // Thêm nút chuyển trang vào cuối product-section
+    const section = document.getElementById("ban");
+    let navDiv = document.getElementById("product-pagination");
+    if (!navDiv) {
+      navDiv = document.createElement("div");
+      navDiv.id = "product-pagination";
+      navDiv.style.textAlign = "center";
+      navDiv.style.marginTop = "24px";
+      section.appendChild(navDiv);
+    }
+    navDiv.innerHTML = "";
+
     if (arr.length > perPage) {
-      const nav = document.createElement("div");
-      nav.style.textAlign = "center";
-      nav.style.marginTop = "18px";
-      nav.innerHTML = `
-        <button id="prev-page" class="product-btn" ${page <= 1 ? "disabled" : ""} style="margin-right:10px;">← Trang trước</button>
-        <span style="font-size:1.1rem;">Trang ${page}/${Math.ceil(arr.length/perPage)}</span>
-        <button id="next-page" class="product-btn" ${page >= Math.ceil(arr.length/perPage) ? "disabled" : ""} style="margin-left:10px;">Trang sau →</button>
+      navDiv.innerHTML = `
+        <div>
+          <button id="prev-page" class="product-btn" ${page <= 1 ? "disabled" : ""} style="margin-right:10px;">← Trang trước</button>
+          <span style="font-size:1.1rem;">Trang ${page}/${Math.ceil(arr.length/perPage)}</span>
+          <button id="next-page" class="product-btn" ${page >= Math.ceil(arr.length/perPage) ? "disabled" : ""} style="margin-left:10px;">Trang sau →</button>
+        </div>
       `;
-      productList.appendChild(nav);
 
       document.getElementById("prev-page").onclick = () => {
         if (page > 1) renderProducts(arr, page - 1);
