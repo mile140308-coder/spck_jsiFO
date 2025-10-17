@@ -52,9 +52,49 @@ document.addEventListener("DOMContentLoaded", async () => {
       <p>Thương hiệu: ${data.brand || ""}</p>
       <p>Loại: ${getProductDisplayName(theLoai, dongCo)}</p>
       <p class="product-desc"><b>Mô tả:</b> ${data.desc || "Chưa có mô tả."}</p>
-      <a href="trangchu.html">← Quay về</a>
-  
+      <div id="add-to-cart-m">
+        <button id="add-to-cart-main" class="product-btn" data-id="${id}">➕ Thêm vào giỏ hàng</button>
+        <div id="msg-main-${id}" class="cart-msg" style="margin-left:12px;min-width:160px;"></div>
+      </div>
+      <a href="trangchu.html" style="display:block;margin-top:12px;">← Quay về</a>
     `;
+
+    // Thêm hàm tiện ích addToCart (localStorage) và gán sự kiện cho nút chi tiết
+    function addToCartLocal(prodId, qty = 1) {
+      try {
+        const raw = localStorage.getItem("cart") || "[]";
+        const cart = JSON.parse(raw);
+        const exist = cart.find(item => item.id === prodId);
+        if (exist) exist.quantity = (exist.quantity || 0) + qty;
+        else cart.push({ id: prodId, quantity: qty });
+        localStorage.setItem("cart", JSON.stringify(cart));
+        return true;
+      } catch (err) {
+        console.error("addToCartLocal error:", err);
+        return false;
+      }
+    }
+
+    // Gắn sự kiện cho nút chi tiết (không chuyển trang, chỉ hiện thông báo)
+    const addMainBtn = document.getElementById("add-to-cart-main");
+    if (addMainBtn) {
+      addMainBtn.addEventListener("click", () => {
+        const prodId = addMainBtn.dataset.id;
+        const ok = addToCartLocal(prodId, 1);
+        const msg = document.getElementById(`msg-main-${prodId}`);
+        if (msg) {
+          if (ok) {
+            msg.style.color = "#4caf50";
+            msg.textContent = "✅ Đã thêm vào giỏ hàng";
+            setTimeout(()=>{ msg.textContent = ""; }, 2000);
+          } else {
+            msg.style.color = "orange";
+            msg.textContent = "❌ Lỗi khi thêm vào giỏ";
+            setTimeout(()=>{ msg.textContent = ""; }, 2500);
+          }
+        }
+      });
+    }
 
     // Hiển thị đánh giá
     renderReviews(data.reviews || []);
