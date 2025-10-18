@@ -548,7 +548,7 @@ main {
   color: #333;
   line-height: 1.4;
 }
-
+#add-to-cart-m .product-btn,
 .add-related-cart.product-btn {
   background: var(--main-blue);
   color: #fff;
@@ -738,7 +738,8 @@ body.dark-mode .review-item p {
 }
 body.dark-mode .product-btn,
 body.dark-mode .add-to-cart,
-body.dark-mode #review-form button {
+body.dark-mode #review-form button 
+body.dark-mode #add-to-cart-m .product-btn {
   background: var(--main-orange);
   color: #000;
 }
@@ -751,7 +752,9 @@ body.dark-mode a {
   color: var(--main-blue);
 }
 body.dark-mode .cart-item h3,
-body.dark-mode #mau-xe p {
+body.dark-mode #mau-xe h2,
+body.dark-mode #mau-xe p
+{
   color: var(--main-orange);
 }
 body.dark-mode .cart-item {
